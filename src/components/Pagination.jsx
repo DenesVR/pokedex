@@ -1,10 +1,11 @@
 import React from "react";
+import { Button } from "@chakra-ui/react";
 
 function Pagination({ previousPage, nextPage }) {
   return (
     <div>
-      {previousPage && <button onClick={previousPage}>Previous</button>}
-      {nextPage && <button onClick={nextPage}>Next</button>}
+      {previousPage && <Button onClick={previousPage}>Previous</Button>}
+      {nextPage && <Button onClick={nextPage}>Next</Button>}
     </div>
   );
 }

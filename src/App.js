@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Grid from "./components/Grid";
 import Pagination from "./components/Pagination";
 import Detail from "./components/Detail";
-import useSWR from "swr";
-
-//const fetcher = url => axios.get(url).then(res => res.data);
+import { ChakraProvider, SimpleGrid, Box } from "@chakra-ui/react";
 
 function App() {
   const [pokemons, setPokemons] = useState([]);
@@ -35,24 +33,29 @@ function App() {
     setPage(previous);
   }
 
-  //const { data, error } = useSWR(`https://pokeapi.co/api/v2/pokemon`, fetcher);
-  //console.log(data);
-
   return (
-    <Router>
-      <Switch>
-        <Route path="/:name">
-          <Detail />
-        </Route>
-        <Route path="/">
-          <Pagination
-            previousPage={previous ? previousPage : null}
-            nextPage={next ? nextPage : null}
-          />
-          <Grid pokemons={pokemons} />
-        </Route>
-      </Switch>
-    </Router>
+    <ChakraProvider>
+      <Router>
+        <Switch>
+          <Route path="/:name">
+            <Detail />
+          </Route>
+          <Route path="/">
+            <SimpleGrid columns={3} spacing={10}>
+              <Box></Box>
+              <Box textAlign="center" fontSize="xl">
+                <Grid pokemons={pokemons} />
+                <Pagination
+                  previousPage={previous ? previousPage : null}
+                  nextPage={next ? nextPage : null}
+                />
+              </Box>
+              <Box></Box>
+            </SimpleGrid>
+          </Route>
+        </Switch>
+      </Router>
+    </ChakraProvider>
   );
 }
 
